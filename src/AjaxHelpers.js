@@ -9,6 +9,6 @@ const fetchAllReports = async(setter) =>{
     .catch(console.error);
 }
 
-const addCommentToPost = ()
+// const addCommentToPost = ()
 
 export default fetchAllReports;
