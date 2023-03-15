@@ -6,7 +6,8 @@ const {
   createReport,
   closeReport,
   getOpenReports,
-  createReportComment
+  createReportComment,
+  _getReport
 } = require('./index');
 
 /**
@@ -105,7 +106,7 @@ async function createInitialReports() {
       password: 'kingwasright'
     })
 
-    console.log('Success creating reports!');
+    console.log('Success creating reports!', reportOne);
 
     return [reportOne, reportTwo, reportThree]
   } catch (error) {
@@ -122,7 +123,6 @@ async function createInitialComments(initialReports) {
 
   try {
     console.log("Trying to create comments...");
-
     const commentOne = await createReportComment(reportOne.id, {
       content: "I saw that, too... let's meet up to discuss"
     });
