@@ -7,9 +7,7 @@ const server = express();
 const path = require('path');
 
 server.use('/dist', express.static(path.join(__dirname, "dist")));
-server.get('/', (req, res, next) =>{
-    res.sendFile(path.join(__dirname, "public", "index.html"))
-})
+server.get('/', (req, res, next) => res.sendFile(path.join(__dirname, "public", "index.html")))
 // Require morgan and body-parser middleware
 const morgan = require('morgan');
 // Have the server use morgan with setting 'dev'

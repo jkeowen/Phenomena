@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavHeader = () => {
     return(
@@ -32,7 +33,7 @@ const NavHeader = () => {
                                 <a href="#" className="nav-link active">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a href="#" className="nav-link">Your Reports</a>
+                                <Link to="/yourreports" className="nav-link">Your Reports</Link>
                             </li>
                             <li className="nav-item">
                                 <a href="#" className="nav-link">Post Report</a>

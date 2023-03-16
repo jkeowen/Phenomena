@@ -34,10 +34,12 @@ apiRouter.get('/reports', async(req, res, next)=>{
  */
 
 
-apiRouter.post('/reports', (req, res, next)=>{
+apiRouter.post('/reports', async(req, res, next)=>{
     try{
-        const newReport = createReport(req.body);
-        res.send(newReport)
+       
+        const newReport = await createReport(req.body);
+        res.send(newReport);
+        
     }catch(err){
         next(err);
     }
