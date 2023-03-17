@@ -31,6 +31,17 @@ export const postNewReport = (title, location, description, password, currentRep
    .catch(console.err)
 }
 
+export const deleteReport = (reportId, password, currentReport, reports, setter) =>{
+    axios.delete(`/api/reports/${reportId}`,
+    {
+        password
+    })
+    .then((response)=> {
+        console.log(response.data);
+        const NewReports = reports.filter((report)=> report !== currentReport);
+        setter(NewReports);
+    })
+}
 
 
 export default fetchAllReports;
