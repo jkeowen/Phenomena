@@ -149,7 +149,8 @@ async function closeReport(reportId, password) {
       }
   
     // If the passwords don't match, throw an error
-    
+      console.log(report.password, password);
+
       if(report.password !== password){
         throw new Error('Password incorrect for this report, please try again');
       }

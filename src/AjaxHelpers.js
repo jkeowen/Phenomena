@@ -31,16 +31,25 @@ export const postNewReport = (title, location, description, password, currentRep
    .catch(console.err)
 }
 
-export const deleteReport = (reportId, password, currentReport, reports, setter) =>{
-    axios.delete(`/api/reports/${reportId}`,
-    {
-        password
-    })
-    .then((response)=> {
-        console.log(response.data);
+export const deleteReport = async(reportId, password, currentReport, reports, setter) =>{
+    try{
+        const response = await fetch(`/api/reports/${reportId}`,{
+            method: 'DELETE',
+            headers:{
+                'Content-Type': 'application/json',
+            }, 
+            body: JSON.stringify({
+                password
+            })
+        });
+        const result = await response.json();
+        if(result){
         const NewReports = reports.filter((report)=> report !== currentReport);
         setter(NewReports);
-    })
+        }
+    }catch(err){
+        console.error(err)
+    }
 }
 
 

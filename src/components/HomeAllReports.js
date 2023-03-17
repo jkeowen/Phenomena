@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Search from "./Search";
 import fetchAllReports, {postNewReport, addNewComment, deleteReport} from "../AjaxHelpers";
 const HomeAllReports = () => {
 
@@ -10,7 +11,9 @@ const HomeAllReports = () => {
     const [ descriptionInput, setDescriptionInput ] = useState('');
     const [currentReport, setCurrentReport] = useState({comments:[]});
     const [ currentDeleting, setCurrentDeleting ] = useState({});
-    const [ deletePasswordInput, setDeletePasswordInput ] = useState('')
+    const [ deletePasswordInput, setDeletePasswordInput ] = useState('');
+    const [ searchInput, setSearchInput ] = useState('');
+    const [ searchCategory, setSearchCategory ] = useState('title');
 
 
     useEffect(()=>{
@@ -64,10 +67,14 @@ const HomeAllReports = () => {
                     <textarea rows='4' cols='67' placeholder="Description" value={descriptionInput} onChange={onChangeNewReport}></textarea>
                     <button type="submit" className="btn btn-outline-success" >Submit</button>
                 </form>
+                <Search setSearchInput={setSearchInput} searchCategory={searchCategory} setSearchCategory={setSearchCategory}/> 
             </div>
             <div className="p-3 border border-1 border-dark">
                 {
-                    reports.map((report, index)=>{
+                    reports.filter((report)=> {
+                        if(searchInput === '') return report;
+                        else if(report[searchCategory].toLowerCase().includes(searchInput.toLocaleLowerCase())) return report
+                    }).map((report, index)=>{
                         return (
                             <div className="p-1 border border-1 border-dark" key={index}>
                                 
