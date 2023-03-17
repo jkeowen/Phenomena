@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from "react";
 import Search from "./Search";
+import Comments from "./Comments";
+import Delete from "./Delete";
 import fetchAllReports, {postNewReport, addNewComment, deleteReport} from "../AjaxHelpers";
 const HomeAllReports = () => {
 
-    const [reports, setReports] = useState([]);
-    const [ addCommentInput, setAddCommentInput ] = useState('');
+    const [ reports, setReports ] = useState([]);
     const [ titleInput, setTitleInput ] = useState('');
     const [ passwordInput, setPasswordInput ] = useState('');
     const [ locationInput, setLocationInput ] = useState('');
     const [ descriptionInput, setDescriptionInput ] = useState('');
-    const [currentReport, setCurrentReport] = useState({comments:[]});
-    const [ currentDeleting, setCurrentDeleting ] = useState({});
-    const [ deletePasswordInput, setDeletePasswordInput ] = useState('');
+    const [ submitMessage, setSubmitMessage ] = useState('');
+    const [ sumbitMessageClass, setSubmitMessageClass ] = useState('')
     const [ searchInput, setSearchInput ] = useState('');
     const [ searchCategory, setSearchCategory ] = useState('title');
 
@@ -30,31 +30,20 @@ const HomeAllReports = () => {
 
     const submitHandler = (event) =>{
         event.preventDefault();
-        postNewReport(titleInput, locationInput, descriptionInput, passwordInput, reports, setReports);
-        setTitleInput('');
-        setDescriptionInput('');
-        setLocationInput('');
-        setPasswordInput('')
-    }
-
-    const onAddComment = (event) =>{
-        event.preventDefault();
-        addNewComment(currentReport.id, addCommentInput, currentReport, setCurrentReport);
-        setAddCommentInput('');
-    }
-
-    const deletePasswordInputHandler = (event) => {
-        setDeletePasswordInput(event.target.value);
-    }
-
-    const deleteHandler = (event) =>{
-        event.preventDefault();
-        deleteReport(currentDeleting.id, deletePasswordInput, currentDeleting, reports, setReports);
-        setCurrentDeleting({});
-    }
-
-    const commentChangeHandler = (event) =>{
-        setAddCommentInput(event.target.value);
+        if(titleInput && descriptionInput && locationInput && passwordInput){
+            setSubmitMessageClass('text-success')
+            setSubmitMessage('Your report has been posted!')
+            postNewReport(titleInput, locationInput, descriptionInput, passwordInput, reports, setReports);
+            setTitleInput('');
+            setDescriptionInput('');
+            setLocationInput('');
+            setPasswordInput('')
+        }
+        else{
+            setSubmitMessageClass('text-danger')
+            setSubmitMessage('Please fillout all fields');
+        }
+        
     }
     return(
         <div className= "home-all-reports container">
@@ -66,6 +55,7 @@ const HomeAllReports = () => {
                     <input className="form-control w-75" placeholder="Location" value={locationInput} onChange={onChangeNewReport}/>
                     <textarea rows='4' cols='67' placeholder="Description" value={descriptionInput} onChange={onChangeNewReport}></textarea>
                     <button type="submit" className="btn btn-outline-success" >Submit</button>
+                    <h5 className={sumbitMessageClass}>{submitMessage}</h5>
                 </form>
                 <Search setSearchInput={setSearchInput} searchCategory={searchCategory} setSearchCategory={setSearchCategory}/> 
             </div>
@@ -83,41 +73,13 @@ const HomeAllReports = () => {
                                 <div className="d-flex justify-content-between align-self-center
                                                 m-2">
                                         <h6>Location: {report.location}</h6>
-                                        {
-                                            currentDeleting === report ? <form 
-                                                        onSubmit={deleteHandler}>
-                                                         <input placeholder="enter password" onChange={deletePasswordInputHandler}/>
-                                                         <button type="submit" className="btn btn-outline-danger"
-                                                         >Delete</button>
-                                                       </form> :
-                                                       <button onClick={()=>setCurrentDeleting(report)} type="button" className="btn btn-outline-warning" 
-                                                        >Delete</button>
-                                        }
-                                        
+                                        <Delete report={report} reports={reports} setReports={setReports} />
                                 </div>
                                 </div>
                                 <p className="border-bottom border-dark m-2">{report.description}</p>
-                                <div>
-                                    <h6>Comments</h6>
-                                    {
-                                        report.comments.length === 0 ?
-                                        <p>No comments at this time</p> :
-                                        <ul>
-                                            {
-                                                report.comments.map((comment, index)=>{
-                                                    return <li key={index}>{comment.content}</li>
-                                                })
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                                <form className="d-flex" onSubmit={onAddComment}>
-                                    <textarea row='2' column='15' className="form-control me-2" placeholder="Add New Comment" value={addCommentInput} onChange={commentChangeHandler}></textarea>
-                                    <button type="submit" className="btn btn-outline-success" onClick={()=> setCurrentReport(report) } >Submit</button>
-                                </form>
-
+                                <Comments report={report}/>
                             </div>
-                        )
+                        ) 
                     })
                 }
             </div>            
