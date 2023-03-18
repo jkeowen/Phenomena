@@ -25,8 +25,9 @@ export const postNewReport = (title, location, description, password, currentRep
    })
    .then((response)=> {
     response.data.comments = []
+    console.log(response.data);
     setter([...currentReports, response.data])
-    return
+    console.log('done')
    })
    .catch(console.err)
 }
