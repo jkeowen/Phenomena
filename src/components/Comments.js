@@ -14,13 +14,13 @@ const Comments = ({report}) =>{
         setCurrentCommented({});
         }
         else{
-            setMissingCommentMessage('Cannot Submit nothing')
+            setMissingCommentMessage('Missing Content')
         }
     }
     const commentChangeHandler = (event) =>{
-        setAddCommentInput(event.target.value);
+        
+            setAddCommentInput(event.target.value);
     }
-
 return(
 
     <div id="comments">
@@ -40,11 +40,11 @@ return(
         </div>
         {
         currentCommented === report ? 
-            <form onSubmit={addCommentHander}>
-                <textarea rows="5" cols="40" placeholder="add comment" onChange={commentChangeHandler}></textarea>
+            <form onSubmit={addCommentHander} className="d-flex align-items-end">
+                <textarea className='mr-3' rows="5" cols="40" placeholder="add comment" onChange={commentChangeHandler}></textarea>
                 <button type="submit" className="btn btn-outline-success"
                 >Submit</button>
-                <h5 className='text-danger'>{missingCommentMessage}</h5>
+                <p className='text-danger'>{missingCommentMessage}</p>
             </form> :
             <button onClick={()=>setCurrentCommented(report)} type="button" className="btn btn-light" 
             >Add Comment</button>

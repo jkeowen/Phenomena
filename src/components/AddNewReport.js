@@ -46,10 +46,10 @@ const AddNewReport = ({
         <div className="container-md">
                 <h4>Create New Report</h4>
                 <form onSubmit={submitHandler} className="d-flex flex-column align-items-center">
-                    <input className="form-control w-75" placeholder="Title" value={titleInput} onChange={onChangeNewReport}/>
-                    <input className="form-control w-75" type="password" placeholder="Password" value={passwordInput} onChange={onChangeNewReport}/>
-                    <input className="form-control w-75" placeholder="Location" value={locationInput} onChange={onChangeNewReport}/>
-                    <textarea rows='4' cols='67' placeholder="Description" value={descriptionInput} onChange={onChangeNewReport}></textarea>
+                    <input className="form-control w-75 mb-1" placeholder="Title" value={titleInput} onChange={onChangeNewReport}/>
+                    <input className="form-control w-75 mb-1" type="password" placeholder="Password" value={passwordInput} onChange={onChangeNewReport}/>
+                    <input className="form-control w-75 mb-1" placeholder="Location" value={locationInput} onChange={onChangeNewReport}/>
+                    <textarea className="form-control mb-1" rows='4' placeholder="Description" value={descriptionInput} onChange={onChangeNewReport}></textarea>
                     <button type="submit" className="btn btn-outline-success" >Submit</button>
                     <h5 className={sumbitMessageClass}>{submitMessage}</h5>
                 </form> 

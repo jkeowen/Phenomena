@@ -11,8 +11,8 @@ const Search = ({
     }
 
     return(
-        <div className='search d-flex flex-row'>
-            <input className="form-control w-75" placeholder="search report" onChange={searchInputHandler}/>
+        <div className='search d-flex flex-row mb-3'>
+            <input className="form-control w-25 mr-3" placeholder='search' onChange={searchInputHandler}/>
             <div className='dropdown'>
                 <button className='btn btn-secondary dropdown-toggle' type="button" 
                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"

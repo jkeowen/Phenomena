@@ -46,7 +46,9 @@ export const deleteReport = async(reportId, password, currentReport, reports, se
         if(result){
         const NewReports = reports.filter((report)=> report !== currentReport);
         setter(NewReports);
+        return true;
         }
+        else return false
     }catch(err){
         console.error(err)
     }
